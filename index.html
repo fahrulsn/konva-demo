@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/konva@9.3.0/konva.min.js"></script>
+    <meta charset="utf-8" />
+    <title>Konva Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      #container {
+        width: 700px;
+        height: 700px;
+        border: 1px solid black;
+        background-image: url("bg3.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 0 -283px;
+      }
+      .button-container {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .theme-button {
+        margin: 5px;
+        padding: 8px 12px;
+        cursor: pointer;
+        width: 200px;
+        height: 50px;
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <div class="button-container">
+      <button class="theme-button" onclick="changeTheme(theme1)">
+        Theme 1
+      </button>
+      <button class="theme-button" onclick="changeTheme(theme2)">
+        Theme 2
+      </button>
+      <button class="theme-button" onclick="changeTheme(theme3)">
+        Theme 3
+      </button>
+    </div>
+    <script>
+      const stage = new Konva.Stage({
+        container: "container",
+        width: 700,
+        height: 700,
+        fill: "white",
+      });
+
+      const layer = new Konva.Layer();
+
+      // const text = new Konva.Text({
+      //   x: 10,
+      //   y: 10,
+      //   fontFamily: "Calibri",
+      //   fontSize: 24,
+      //   text: "",
+      //   fill: "black",
+      // });
+
+      const theme1 = {
+        color1: "#f0cf1f",
+        color2: "#2624d0",
+        color3: "#f2f2f2",
+      };
+
+      const theme2 = {
+        color1: "#053c94",
+        color2: "#e72d2d",
+        color3: "#f2f2f2",
+      };
+
+      const theme3 = {
+        color1: "#f7f7f7",
+        color2: "#f7f7f7",
+        color3: "#f0cf1f",
+      };
+
+      const volleyball = new Konva.Image();
+
+      const stripe1 = new Konva.Shape({
+        sceneFunc: function (context, shape) {
+          context.beginPath();
+          context.moveTo(350, 350);
+          context.quadraticCurveTo(334, 321, 337, 310);
+          context.quadraticCurveTo(415, 310, 446, 368);
+          context.quadraticCurveTo(445, 380, 433, 403);
+          context.quadraticCurveTo(410, 350, 350, 350);
+
+          context.moveTo(285, 275);
+          context.quadraticCurveTo(230, 330, 262, 395);
+          context.quadraticCurveTo(274, 398, 290, 394);
+          context.quadraticCurveTo(256, 335, 285, 275);
+
+          context.moveTo(433, 403);
+          context.quadraticCurveTo(429, 390, 417, 380);
+          context.quadraticCurveTo(380, 445, 318, 444);
+          context.quadraticCurveTo(393, 461, 433, 403);
+          context.closePath();
+
+          // (!) Konva specific method, it is very important
+          context.fillStrokeShape(shape);
+        },
+        fill: "#e4e4e4",
+      });
+
+      const stripe2 = new Konva.Shape({
+        sceneFunc: function (context, shape) {
+          context.beginPath();
+          context.moveTo(350, 350);
+          context.quadraticCurveTo(370, 347, 392, 358);
+          context.quadraticCurveTo(362, 420, 285, 425);
+          context.quadraticCurveTo(275, 417, 261, 395);
+          context.quadraticCurveTo(310, 393, 322, 383);
+          context.quadraticCurveTo(285, 320, 317, 255);
+          context.quadraticCurveTo(330, 255, 355, 250);
+          context.quadraticCurveTo(426, 255, 447, 330);
+          context.quadraticCurveTo(412, 273, 342, 278);
+          context.quadraticCurveTo(328, 311, 350, 350);
+          context.closePath();
+
+          // (!) Konva specific method, it is very important
+          context.fillStrokeShape(shape);
+        },
+        fill: "#e4e4e4",
+      });
+      const stripe3 = new Konva.Shape({
+        sceneFunc: function (context, shape) {
+          context.beginPath();
+          context.moveTo(338, 311);
+          context.quadraticCurveTo(333, 300, 343, 278);
+          context.quadraticCurveTo(405, 273, 446, 330);
+          context.quadraticCurveTo(451, 350, 447, 368);
+          context.quadraticCurveTo(406, 308, 338, 311);
+
+          context.moveTo(391, 359);
+          context.quadraticCurveTo(407, 364, 417, 380);
+          context.quadraticCurveTo(390, 438, 320, 444);
+          context.quadraticCurveTo(300, 439, 286, 424);
+          context.quadraticCurveTo(356, 425, 391, 359);
+
+          context.moveTo(322, 381);
+          context.quadraticCurveTo(307, 392, 290, 393);
+          context.quadraticCurveTo(254, 337, 286, 274);
+          context.quadraticCurveTo(296, 264, 318, 256);
+          context.quadraticCurveTo(284, 318, 322, 381);
+          context.closePath();
+
+          // (!) Konva specific method, it is very important
+          context.fillStrokeShape(shape);
+        },
+        fill: "#e4e4e4",
+      });
+
+      const overlay = new Konva.Circle({
+        x: 350,
+        y: 350,
+        radius: 100,
+        fillLinearGradientStartPoint: { x: -50, y: -50 },
+        fillLinearGradientEndPoint: { x: 50, y: 50 },
+        fillLinearGradientColorStops: [0, "#00000000", 1, "#000000"],
+        opacity: 0.6,
+        strokeWidth: 2,
+      });
+
+      const shadow = new Konva.Ellipse({
+        x: 420,
+        y: 450,
+        radiusX: 150,
+        radiusY: 150,
+        fillRadialGradientStartPoint: { x: -70, y: 0 },
+        fillRadialGradientStartRadius: 0,
+        fillRadialGradientEndPoint: { x: 0, y: 0 },
+        fillRadialGradientEndRadius: 140,
+        fillRadialGradientColorStops: [0, "black", 0.8, "#00000000"],
+        opacity: 1,
+        strokeWidth: 4,
+        scaleY: 0.2,
+      });
+
+      function writeMessage(message) {
+        text.text(message);
+      }
+
+      const group = new Konva.Group({
+        draggable: true, // Mengatur grup agar dapat di-drag
+      });
+
+      // stage.on("pointermove", function () {
+      //   const mousePos = stage.getPointerPosition();
+      //   writeMessage("x: " + mousePos.x + ", y: " + mousePos.y);
+      // });
+
+      function changeTheme(theme) {
+        stripe1.fill(theme.color1);
+        stripe2.fill(theme.color2);
+        stripe3.fill(theme.color3);
+        layer.draw();
+      }
+      const stripeGroup = new Konva.Group({
+        shadowColor: "black", // Warna bayangan untuk grup
+        shadowBlur: 5, // Tingkat blur bayangan
+        shadowOffsetX: 5, // Pergeseran horizontal bayangan
+        shadowOffsetY: 5, // Pergeseran vertikal bayangan
+      });
+
+      stripeGroup.add(stripe1, stripe2, stripe3);
+      group.add(stripeGroup, overlay, shadow, volleyball);
+
+      layer.add(group);
+      // layer.add(text);
+
+      shadow.moveToBottom();
+      volleyball.moveToTop();
+
+      const imageObj = new Image();
+      imageObj.onload = function () {
+        volleyball.image(imageObj); // Gunakan .image() untuk mengatur gambar pada objek
+        volleyball.width(200);
+        volleyball.height(200);
+        volleyball.x(stage.width() / 2 - 100);
+        volleyball.y(stage.height() / 2 - 100);
+        layer.draw();
+      };
+      imageObj.src = "nocolor.svg";
+      // add the layer to the stage
+      stage.add(layer);
+    </script>
+  </body>
+</html>
